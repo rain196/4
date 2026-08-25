@@ -1,0 +1,26 @@
+{
+  "project": "MARD_Bead_App",
+  "version": "4.2",
+  "palette": "MARD 291",
+  "palette_entries": 291,
+  "sizes": [
+    32,
+    48,
+    64,
+    80,
+    96,
+    128
+  ],
+  "features": [
+    "image_to_pattern",
+    "size_selection",
+    "cell_edit",
+    "mard_code_search",
+    "replace_all",
+    "undo_redo",
+    "material_counts",
+    "json_save",
+    "png_export",
+    "pan_view"
+  ]
+}
