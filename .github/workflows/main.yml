@@ -27,14 +27,23 @@ jobs:
       - name: Install buildozer & cython
         run: |
           pip install --upgrade pip
-          pip install buildozer cython==0.29.36
+          pip install buildozer cython==0.29.33
+
+      - name: Add swap space (avoid OOM during compile)
+        run: |
+          sudo swapoff -a
+          sudo fallocate -l 8G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
+          free -h
 
       - name: Build APK with Buildozer
         run: |
           yes | buildozer android debug
         env:
-          # Speeds up first-run Android SDK license acceptance
           ANDROID_SDK_ROOT: /home/runner/.buildozer/android/platform/android-sdk
+          MAKEFLAGS: -j2
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
