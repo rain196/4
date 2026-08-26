@@ -38,14 +38,16 @@ jobs:
           sudo swapon /swapfile
           free -h
 
+      - name: Pin Cython for isolated build envs
+        run: echo "cython==0.29.33" > /home/runner/pip-constraints.txt
+
       - name: Build APK with Buildozer
         run: |
           yes | buildozer android debug
         env:
-          # Speeds up first-run Android SDK license acceptance
           ANDROID_SDK_ROOT: /home/runner/.buildozer/android/platform/android-sdk
-          # Limit parallel compile jobs to reduce memory pressure
           MAKEFLAGS: -j2
+          PIP_CONSTRAINT: /home/runner/pip-constraints.txt
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
